@@ -54,7 +54,8 @@ export const CheckoutForm = () => {
     };
   
     return (
-      <form onSubmit={handleSubmit}>
+     
+      <form className="w-50 bg-light mx-auto" onSubmit={handleSubmit}>
         <CardElement />
         <button type="submit" disabled={!stripe || loading}>
           Pay
