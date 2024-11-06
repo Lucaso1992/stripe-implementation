@@ -15,7 +15,7 @@ export const CheckoutForm = () => {
           body: JSON.stringify({ amount: 1000, currency: 'usd' }) 
         })
           .then((res) => res.json())
-          .then((data) => setClientSecret(data.clientSecret));
+          .then((data) => setClientSecret(data.client_secret));
       }
       paymentIntent()
       }, []);
