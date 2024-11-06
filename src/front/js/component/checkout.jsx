@@ -1,8 +1,5 @@
-
 import React, {useState, useEffect} from "react";
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-
-
 
 export const CheckoutForm = () => {
     const stripe = useStripe();
@@ -11,15 +8,16 @@ export const CheckoutForm = () => {
     const [loading, setLoading] = useState(false);
   
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
-        fetch('https://potential-fiesta-q57vjgxrwqwh4j66-3001.app.github.dev/api/create-payment', {
+        const paymentIntent = () => {
+          fetch('https://redesigned-space-carnival-rj4qx755rgjcw7v-3001.app.github.dev/api/create-payment', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          //la cantidad ha pagar esta puesta fija, pero puede recibir un objeto desde el contexto
-          body: JSON.stringify({ amount: 1000, currency: 'usd' }) // Amount in cents
+          body: JSON.stringify({ amount: 1000, currency: 'usd' }) 
         })
           .then((res) => res.json())
           .then((data) => setClientSecret(data.clientSecret));
+      }
+      paymentIntent()
       }, []);
 
 
@@ -33,8 +31,7 @@ export const CheckoutForm = () => {
       setLoading(true);
   
       const { error, paymentIntent } = await stripe.confirmCardPayment(
-       clientSecret,
-        {
+       clientSecret,{
           payment_method: {
             card: elements.getElement(CardElement),
           },
